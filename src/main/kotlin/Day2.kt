@@ -1,3 +1,6 @@
+import Day2.Outcome.Draw
+import Day2.Outcome.Loss
+import Day2.Outcome.Win
 import Day2.Shape.Paper
 import Day2.Shape.Rock
 import Day2.Shape.Scissors
@@ -19,8 +22,14 @@ class Day2 : Day {
         scores.reduce(Int::plus)
     }
 
-    override fun solvePuzzle2() {
+    override fun solvePuzzle2() = runBlocking {
+        val instructions = loadInstructions("src/main/resources/day2.txt".toPath())
 
+        val scores = instructions.map { (opponent, outcome) ->
+            play(selectShape(Shape.map[opponent]!!, Outcome.map[outcome]!!), Shape.map[opponent]!!)
+        }
+
+        scores.reduce(Int::plus)
     }
 
 
@@ -49,6 +58,24 @@ class Day2 : Day {
         }
     }
 
+    private fun selectShape(opponent: Shape, outcome: Outcome): Shape {
+        return when (outcome) {
+            Win -> when (opponent) {
+                Rock -> Paper
+                Paper -> Scissors
+                Scissors -> Rock
+            }
+
+            Loss -> when (opponent) {
+                Rock -> Scissors
+                Paper -> Rock
+                Scissors -> Paper
+            }
+
+            Draw -> opponent
+        }
+    }
+
     private enum class Shape {
         Rock,
         Paper,
@@ -62,6 +89,20 @@ class Day2 : Day {
                 'X' to Rock,
                 'Y' to Paper,
                 'Z' to Scissors
+            )
+        }
+    }
+
+    private enum class Outcome {
+        Win,
+        Loss,
+        Draw;
+
+        companion object {
+            val map = mapOf(
+                'X' to Loss,
+                'Y' to Draw,
+                'Z' to Win
             )
         }
     }
