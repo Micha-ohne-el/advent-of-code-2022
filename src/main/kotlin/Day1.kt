@@ -2,6 +2,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.reduce
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.runBlocking
 import okio.FileSystem
@@ -19,8 +20,12 @@ class Day1 : Day {
         calories.reduce { max, calorieCount -> maxOf(max, calorieCount) }
     }
 
-    override fun solvePuzzle2() {
-        TODO("Not yet implemented")
+    override fun solvePuzzle2() = runBlocking {
+        val elves = loadElves("src/main/resources/day1.txt".toPath())
+
+        val calories = elves.map(List<Int>::sum).toList()
+
+        calories.sortedDescending().take(3).sum()
     }
 
 
