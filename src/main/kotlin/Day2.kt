@@ -12,7 +12,9 @@ class Day2 : Day {
     override fun solvePuzzle1() = runBlocking {
         val instructions = loadInstructions("src/main/resources/day2.txt".toPath())
 
-        val scores = instructions.map { (opponent, player) -> play(player, opponent) }
+        val scores = instructions.map { (opponent, player) ->
+            play(Shape.map[player]!!, Shape.map[opponent]!!)
+        }
 
         scores.reduce(Int::plus)
     }
@@ -22,9 +24,8 @@ class Day2 : Day {
     }
 
 
-    private fun loadInstructions(path: Path) = readLines(FileSystem.SYSTEM.source(path)).map { line ->
-        Shape.map[line.first()]!! to Shape.map[line.last()]!!
-    }
+    private fun loadInstructions(path: Path)
+        = readLines(FileSystem.SYSTEM.source(path)).map { line -> line.first() to line.last() }
 
     private fun play(player: Shape, opponent: Shape): Int {
         return when (player) {
