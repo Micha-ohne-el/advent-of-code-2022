@@ -1,5 +1,4 @@
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.reduce
 import kotlinx.coroutines.flow.toList
@@ -8,8 +7,6 @@ import kotlinx.coroutines.runBlocking
 import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toPath
-import okio.Source
-import okio.buffer
 
 class Day1 : Day {
     override fun solvePuzzle1() = runBlocking {
@@ -38,16 +35,6 @@ class Day1 : Day {
                 elf.clear()
             } else {
                 elf += line.toInt()
-            }
-        }
-    }
-
-    private fun readLines(source: Source) = flow {
-        source.use { fileSource ->
-            fileSource.buffer().use { bufferedFileSource ->
-                while (!bufferedFileSource.exhausted()) {
-                    emit(bufferedFileSource.readUtf8LineStrict())
-                }
             }
         }
     }
