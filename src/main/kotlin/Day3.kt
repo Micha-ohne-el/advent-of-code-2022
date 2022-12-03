@@ -34,7 +34,7 @@ class Day3 : Day {
 
 
     private fun loadRucksacks(path: Path)
-        = readLines(FileSystem.SYSTEM.source(path)).map { it.halve(String::toSet) }
+        = readLines(FileSystem.SYSTEM.source(path)).map { it.halve() }
 
     private fun loadGroups(path: Path): Flow<Triple<Set<Char>, Set<Char>, Set<Char>>> {
         val group = mutableListOf<Set<Char>>()
@@ -55,9 +55,9 @@ class Day3 : Day {
         code - 'A'.code + 27
     }
 
-    private fun <T> String.halve(transform: (String) -> T): Pair<T, T> {
+    private fun String.halve(): Pair<Set<Char>, Set<Char>> {
         val chunks = chunked(length / 2)
 
-        return Pair(transform(chunks[0]), transform(chunks[1]))
+        return Pair(chunks[0].toSet(), chunks[1].toSet())
     }
 }
