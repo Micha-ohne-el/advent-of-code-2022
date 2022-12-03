@@ -9,4 +9,6 @@ fun main() {
 }
 
 
-private val days = listOf<Day>()
+private val days = listOf<Day>(
+    Day1()
+)
