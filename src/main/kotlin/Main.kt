@@ -24,5 +24,6 @@ fun main() {
 private val days = listOf(
     Day1(),
     Day2(),
-    Day3()
+    Day3(),
+    Day4()
 )
