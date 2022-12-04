@@ -16,8 +16,14 @@ class Day4 : Day {
         }
     }
 
-    override fun solvePuzzle2() {
+    override fun solvePuzzle2() = runBlocking {
+        val assignmentPairs = loadAssignmentPairs("src/main/resources/day4.txt".toPath())
 
+        assignmentPairs.count { (elf1, elf2) ->
+            val overlap = elf1.intersect(elf2)
+
+            overlap.isNotEmpty()
+        }
     }
 
 
