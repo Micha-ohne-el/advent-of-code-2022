@@ -5,7 +5,7 @@ import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toPath
 
-class Day4 : Day {
+class Day4 : Day(4) {
     override fun solvePuzzle1() = runBlocking {
         val assignmentPairs = loadAssignmentPairs("src/main/resources/day4.txt".toPath())
 

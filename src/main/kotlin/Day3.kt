@@ -7,7 +7,7 @@ import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toPath
 
-class Day3 : Day {
+class Day3 : Day(3) {
     override fun solvePuzzle1() = runBlocking {
         val rucksacks = loadRucksacks("src/main/resources/day3.txt".toPath())
 

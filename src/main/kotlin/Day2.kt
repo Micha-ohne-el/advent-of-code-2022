@@ -11,7 +11,7 @@ import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toPath
 
-class Day2 : Day {
+class Day2 : Day(2) {
     override fun solvePuzzle1() = runBlocking {
         val instructions = loadInstructions("src/main/resources/day2.txt".toPath()).map {
             (opponent, suggestion) -> opponent.toShape() to suggestion.toShape()

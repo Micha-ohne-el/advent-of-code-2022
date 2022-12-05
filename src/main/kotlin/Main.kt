@@ -4,15 +4,15 @@ import kotlin.time.measureTime
 @OptIn(ExperimentalTime::class)
 fun main() {
     for (day in days) {
-        println("======= ${day::class.simpleName} =======")
+        println("======= $day =======")
 
         val time1 = measureTime {
-            print("Puzzle1: ${day.solvePuzzle1()} ")
+            print("Puzzle 1: ${day.solvePuzzle1()} ")
         }
         println("(took $time1)")
 
         val time2 = measureTime {
-            print("Puzzle1: ${day.solvePuzzle2()} ")
+            print("Puzzle 2: ${day.solvePuzzle2()} ")
         }
         println("(took $time2)")
     }
