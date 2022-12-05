@@ -20,8 +20,22 @@ class Day5 : Day(5) {
         stacks.map { it.peek() }.joinToString("")
     }
 
-    override fun solvePuzzle2() {
+    override fun solvePuzzle2() = runBlocking {
+        val (stacks, instructions) = loadStacksAndInstructions()
 
+        instructions.collect { instruction ->
+            val sourceStack = stacks[instruction.from - 1]
+            val targetStack = stacks[instruction.to - 1]
+            val targetPosition = targetStack.size
+
+            for (i in 1..instruction.amount) {
+                val crate = sourceStack.pop()
+
+                targetStack.add(targetPosition, crate)
+            }
+        }
+
+        stacks.map { it.peek() }.joinToString("")
     }
 
 
