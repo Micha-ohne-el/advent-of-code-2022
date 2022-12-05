@@ -4,13 +4,10 @@ import kotlinx.coroutines.flow.reduce
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.runBlocking
-import okio.FileSystem
-import okio.Path
-import okio.Path.Companion.toPath
 
 class Day1 : Day(1) {
     override fun solvePuzzle1() = runBlocking {
-        val elves = loadElves("src/main/resources/day1.txt".toPath())
+        val elves = loadElves()
 
         val calories = elves.map(List<Int>::sum)
 
@@ -18,7 +15,7 @@ class Day1 : Day(1) {
     }
 
     override fun solvePuzzle2() = runBlocking {
-        val elves = loadElves("src/main/resources/day1.txt".toPath())
+        val elves = loadElves()
 
         val calories = elves.map(List<Int>::sum).toList()
 
@@ -26,10 +23,10 @@ class Day1 : Day(1) {
     }
 
 
-    private suspend fun loadElves(path: Path): Flow<List<Int>> {
+    private suspend fun loadElves(): Flow<List<Int>> {
         val elf = mutableListOf<Int>()
 
-        return readLines(FileSystem.SYSTEM.source(path)).transform {line ->
+        return readLines().transform {line ->
             if (line.isBlank()) {
                 emit(elf)
                 elf.clear()

@@ -1,13 +1,10 @@
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
-import okio.FileSystem
-import okio.Path
-import okio.Path.Companion.toPath
 
 class Day4 : Day(4) {
     override fun solvePuzzle1() = runBlocking {
-        val assignmentPairs = loadAssignmentPairs("src/main/resources/day4.txt".toPath())
+        val assignmentPairs = loadAssignmentPairs()
 
         assignmentPairs.count { (elf1, elf2) ->
             val overlap = elf1.intersect(elf2)
@@ -17,7 +14,7 @@ class Day4 : Day(4) {
     }
 
     override fun solvePuzzle2() = runBlocking {
-        val assignmentPairs = loadAssignmentPairs("src/main/resources/day4.txt".toPath())
+        val assignmentPairs = loadAssignmentPairs()
 
         assignmentPairs.count { (elf1, elf2) ->
             val overlap = elf1.intersect(elf2)
@@ -27,7 +24,7 @@ class Day4 : Day(4) {
     }
 
 
-    private fun loadAssignmentPairs(path: Path) = readLines(FileSystem.SYSTEM.source(path)).map { line ->
+    private fun loadAssignmentPairs() = readLines().map { line ->
         val assignments = line.split(',').map { assignment ->
             val parts = assignment.split('-')
 

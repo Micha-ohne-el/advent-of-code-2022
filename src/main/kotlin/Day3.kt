@@ -3,13 +3,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.reduce
 import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.runBlocking
-import okio.FileSystem
-import okio.Path
-import okio.Path.Companion.toPath
 
 class Day3 : Day(3) {
     override fun solvePuzzle1() = runBlocking {
-        val rucksacks = loadRucksacks("src/main/resources/day3.txt".toPath())
+        val rucksacks = loadRucksacks()
 
         val commonItems = rucksacks.map { (compartment1, compartment2) ->
             compartment1.intersect(compartment2).first()
@@ -21,7 +18,7 @@ class Day3 : Day(3) {
     }
 
     override fun solvePuzzle2() = runBlocking {
-        val groups = loadGroups("src/main/resources/day3.txt".toPath())
+        val groups = loadGroups()
 
         val badges = groups.map { (elf1, elf2, elf3) ->
             elf1.intersect(elf2).intersect(elf3).first()
@@ -33,13 +30,13 @@ class Day3 : Day(3) {
     }
 
 
-    private fun loadRucksacks(path: Path)
-        = readLines(FileSystem.SYSTEM.source(path)).map { it.halve() }
+    private fun loadRucksacks()
+        = readLines().map { it.halve() }
 
-    private fun loadGroups(path: Path): Flow<Triple<Set<Char>, Set<Char>, Set<Char>>> {
+    private fun loadGroups(): Flow<Triple<Set<Char>, Set<Char>, Set<Char>>> {
         val group = mutableListOf<Set<Char>>()
 
-        return readLines(FileSystem.SYSTEM.source(path)).transform { line ->
+        return readLines().transform { line ->
             group += line.toSet()
 
             if (group.size >= 3) {

@@ -7,13 +7,10 @@ import Day2.Shape.Scissors
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.reduce
 import kotlinx.coroutines.runBlocking
-import okio.FileSystem
-import okio.Path
-import okio.Path.Companion.toPath
 
 class Day2 : Day(2) {
     override fun solvePuzzle1() = runBlocking {
-        val instructions = loadInstructions("src/main/resources/day2.txt".toPath()).map {
+        val instructions = loadInstructions().map {
             (opponent, suggestion) -> opponent.toShape() to suggestion.toShape()
         }
 
@@ -25,7 +22,7 @@ class Day2 : Day(2) {
     }
 
     override fun solvePuzzle2() = runBlocking {
-        val instructions = loadInstructions("src/main/resources/day2.txt".toPath()).map { (opponent, suggestion) ->
+        val instructions = loadInstructions().map { (opponent, suggestion) ->
             opponent.toShape() to suggestion.toOutcome()
         }
 
@@ -39,8 +36,8 @@ class Day2 : Day(2) {
     }
 
 
-    private fun loadInstructions(path: Path)
-        = readLines(FileSystem.SYSTEM.source(path)).map { line -> line.first() to line.last() }
+    private fun loadInstructions()
+        = readLines().map { line -> line.first() to line.last() }
 
     private val shapeMap = mapOf(
         'A' to Rock, 'B' to Paper, 'C' to Scissors,
