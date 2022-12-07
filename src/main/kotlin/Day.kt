@@ -1,4 +1,5 @@
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.transform
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import okio.buffer
@@ -18,6 +19,12 @@ abstract class Day(
                     emit(bufferedFileSource.readUtf8LineStrict())
                 }
             }
+        }
+    }
+
+    fun readCharacters() = readLines().transform { line ->
+        for (char in line) {
+            emit(char)
         }
     }
 
