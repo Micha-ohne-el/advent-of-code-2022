@@ -16,8 +16,14 @@ class Day6 : Day(6) {
         startOfPacket.index + 4
     }
 
-    override fun solvePuzzle2() {
+    override fun solvePuzzle2() = runBlocking {
+        val chars = readCharacters()
 
+        val startOfPacket = chars.sweep(14).withIndex().first { (index, chunk) ->
+            chunk.distinct().size == chunk.size
+        }
+
+        startOfPacket.index + 14
     }
 
 
